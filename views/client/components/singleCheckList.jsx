@@ -59,8 +59,8 @@ const STYLES = {
     width: "100%"
 }
 
-const ITEM_HEIGHT = 25;
-const ITEM_WIDTH = 150;
+const ITEM_HEIGHT = undefined;
+const ITEM_WIDTH = "100%";
 
 const ITEM_STYLES = {
     width: ITEM_WIDTH,

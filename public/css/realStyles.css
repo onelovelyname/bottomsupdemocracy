@@ -27,6 +27,9 @@
   background-color: #e6e6e6;
   cursor: pointer;
   border: 1px solid ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tile-button:hover{
