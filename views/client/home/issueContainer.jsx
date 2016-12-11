@@ -52,7 +52,7 @@ const ISSUE_FILTER_WRAPPER_STYLES = {
 }
 
 const WRAPPER_STYLES = {
-    height: "calc(100% - 100px)",
+    height: "450px",
     boxSizing: "border-box",
     padding: 10,
     display: "flex",

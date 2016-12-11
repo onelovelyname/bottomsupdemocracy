@@ -146,7 +146,7 @@ export default React.createClass({
               </div>
             </div> : 
             <div style={QUESTION_PANE_STYLES}>
-               
+               <img style={{width: "100%"}} src={'/img/data.png'} />
             </div>
             }
         </div>
