@@ -4,12 +4,14 @@ const Promise = require("bluebird");
 
 exports.postOpinion = (req, res, next) => {
 
-    Promise.all([saveOneOpinion(req), Issue.getIssueById(req.body.issue)]).then(function(results) {
-        console.log("opinion: " + results[0]);
-        console.log("issue: " + results[1]);
-        res.send("success!");
+    saveOneOpinion(req).then(function(opinion) {
+       res.send(opinion);
     });
-
+    // Promise.all([saveOneOpinion(req), Issue.getIssueById(req.body.issue)]).then(function(results) {
+    //     console.log("opinion: " + results[0]);
+    //     console.log("issue: " + results[1]);
+    //     res.send("success!");
+    // });
 };
 
 function saveOneOpinion(req) {
@@ -29,6 +31,7 @@ function saveOneOpinion(req) {
                     resolve("Opinion for this issue and user already exists");
                 } else {
                     opinion.save(function(err) {
+                        console.log("Saved opinion!");
                         resolve(opinion);
                     });
                 }
@@ -43,3 +46,11 @@ exports.getOpinion = function(req, res, next) {
             res.send(opinion);
         });
 };
+
+exports.getOpinionsForIssue = function(req, res, next) {
+    var issue = req.params.issue;
+    Opinion.find().where('issue', issue)
+        .exec(function(err, issues) {
+            res.send(issues);
+        })
+}

@@ -142,6 +142,8 @@ app.post('/createissue', issuesController.postIssue);
 app.get('/issues', issuesController.getIssues);
 app.get('/issue/:issueid', issuesController.getIssue);
 app.post('/createopinion', opinionsController.postOpinion);
+app.get('/api/opinions/:issue', opinionsController.getOpinionsForIssue);
+
 
 /**
  * API examples routes.
