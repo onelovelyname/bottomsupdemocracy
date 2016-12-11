@@ -50,15 +50,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _homeWrapper = __webpack_require__(186);
+	var _dataWrapper = __webpack_require__(32);
 
-	var _homeWrapper2 = _interopRequireDefault(_homeWrapper);
+	var _dataWrapper2 = _interopRequireDefault(_dataWrapper);
 
 	var _reactDom = __webpack_require__(35);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _reactDom.render)(_react2.default.createElement(_homeWrapper2.default), document.getElementById("app"));
+	(0, _reactDom.render)(_react2.default.createElement(_dataWrapper2.default), document.getElementById("app"));
 
 /***/ },
 /* 1 */
@@ -4107,7 +4107,273 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 32 */,
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jquery = __webpack_require__(33);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _singleCheckList = __webpack_require__(34);
+
+	var _singleCheckList2 = _interopRequireDefault(_singleCheckList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// state 
+	exports.default = _react2.default.createClass({
+	    displayName: 'dataWrapper',
+
+
+	    getData: function getData() {
+
+	        var id = window.location.pathname;
+	        id = id.split('/');
+	        id = id[id.length - 1];
+	        console.log(id);
+
+	        var issueAjaxSettings = {
+	            type: "GET",
+	            url: "/issue/" + id
+	        };
+
+	        var issuePromise = _jquery2.default.ajax(issueAjaxSettings);
+
+	        var opinionPromise = _jquery2.default.getJSON("/api/opinions/" + id);
+
+	        _jquery2.default.when.apply(_jquery2.default, [issuePromise, opinionPromise]).then(function (a, b) {
+	            console.log(a, b);
+	        });
+
+	        var nextState = {
+	            issue: {
+	                "_id": "584d9d929dbd4e00113600ec",
+	                "title": "Should San Francisco remain a sancutuary city?",
+	                "scale": "local",
+	                "category": "immigration",
+	                "__v": 0,
+	                "opinions": []
+	            },
+	            opinions: [{
+	                "_id": "584db0a2f3b43e001152c117",
+	                "updatedAt": "2016-12-11T20:01:39.046Z",
+	                "createdAt": "2016-12-11T20:01:39.046Z",
+	                "issue": "584d9e339dbd4e00113600ed",
+	                "user": "584dafa233b3d78b682c51b3",
+	                "statement": "Being a sanctuary city, for me, is the DNA of San Francisco. We’ll always be a sanctuary city.",
+	                "__v": 0
+	            }, {
+	                "_id": "584db0d1f3b43e001152c118",
+	                "updatedAt": "2016-12-11T20:02:25.416Z",
+	                "createdAt": "2016-12-11T20:02:25.416Z",
+	                "issue": "584d9e339dbd4e00113600ed",
+	                "user": "584daeffa9c8148ab1b5c80f",
+	                "statement": "They’re [Mayors like SF’s Ed Lee] just thumbing their noses at federal law and putting their own citizens in danger. Trump has made it very clear he cares about the victims of these illegal alien sanctuary cities.",
+	                "__v": 0
+	            }, {
+	                "_id": "584db2b6f3b43e001152c11a",
+	                "updatedAt": "2016-12-11T20:10:30.896Z",
+	                "createdAt": "2016-12-11T20:10:30.896Z",
+	                "issue": "584d9e339dbd4e00113600ed",
+	                "user": "584db1cdf3b43e001152c119",
+	                "statement": "Our legal system is never perfectly responsive to people's circumstances, and sanctuary, while not included in our statutes, has often been invoked in the United States. In particular, groups who have been the subject of prejudicial laws have sought and used sanctuary, sometimes to evade what they considered to be an unfair law and sometime to issue broad public challenges to injustices within the legal system.",
+	                "__v": 0
+	            }],
+	            preferenceValue: 0,
+	            status: "not-voted"
+	        };
+	        console.log(nextState);
+	        this.setState(nextState);
+	    },
+
+	    componentWillMount: function componentWillMount() {
+	        var nextState = {
+	            issue: "",
+	            preferenceValue: 0,
+	            status: "not-voted",
+	            tab: 0
+	        };
+	        this.setState(nextState);
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        this.getData();
+	    },
+
+	    divRef: HTMLDivElement,
+
+	    updatePreferenceValue: function updatePreferenceValue(val) {
+	        var nextState = {
+	            preferenceValue: val
+	        };
+	        this.setState(nextState);
+	    },
+
+	    tabOneButton: function tabOneButton() {
+	        this.setState({ tab: 0 });
+	    },
+
+	    tabTwoButton: function tabTwoButton() {
+	        this.setState({ tab: 1 });
+	    },
+
+	    render: function render() {
+
+	        var preferenceOptions = this.state.opinions !== undefined ? this.state.opinions.map(function (opt, i) {
+	            return { name: opt.statement, value: i };
+	        }) : undefined;
+
+	        return _react2.default.createElement(
+	            'div',
+	            { ref: function ref(elt) {}, style: WRAPPER_STYLES },
+	            this.state.opinions !== undefined && this.state.issue !== undefined ? _react2.default.createElement(
+	                'div',
+	                { style: CONTAINER_STYLES },
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { height: "50px", width: "100%", padding: 10, display: 'flex', flexWrap: "wrap" } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { onClick: this.tabOneButton, className: "tile-button", style: { height: 30, width: 265 } },
+	                        "Vote"
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { onClick: this.tabTwoButton, className: "tile-button", style: { marginLeft: 10, height: 30, width: 265 } },
+	                        "View Responses"
+	                    )
+	                ),
+	                this.state.tab == 0 ? _react2.default.createElement(
+	                    'div',
+	                    { style: QUESTION_PANE_STYLES },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: HEADER_STYLE },
+	                        this.state.issue.title
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: DESCRIPTION_STYLE },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { height: "100px", width: "100%" } },
+	                            _react2.default.createElement(_singleCheckList2.default, { options: preferenceOptions, value: this.state.preferenceValue,
+	                                onChange: this.updatePreferenceValue })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: FOOTER_STYLE },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: "tile-button", style: _jquery2.default.extend({}, BUTTON_STYLES, { width: 75 }) },
+	                            "Delegate"
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: "tile-button", style: _jquery2.default.extend({ marginLeft: "5px" }, BUTTON_STYLES) },
+	                            "Vote"
+	                        )
+	                    )
+	                ) : _react2.default.createElement(
+	                    'div',
+	                    { style: QUESTION_PANE_STYLES },
+	                    _react2.default.createElement('img', { style: { width: "100%" }, src: '/img/data.png' })
+	                )
+	            ) : ''
+	        );
+	    }
+	});
+
+
+	var QUESTION_PANE_STYLES = {
+	    width: "100%",
+	    height: "calc(100% - 50px)",
+	    boxSizing: "border-box",
+	    padding: 5,
+	    border: "1px solid #ccc"
+	};
+
+	var VIS_PANE_STYLES = {
+	    width: "60%",
+	    height: "95%",
+	    marginRight: "2.5%",
+	    marginTop: "2.5%",
+	    marginBottom: "2.5%",
+	    boxSizing: "border-box",
+	    padding: 5,
+	    border: "1px solid #ccc"
+	};
+
+	var WRAPPER_STYLES = {
+	    width: "100%",
+	    height: "100%",
+	    display: "flex",
+	    alignItems: "center",
+	    justifyContent: "center"
+	};
+
+	var CONTAINER_STYLES = {
+
+	    width: "600px",
+	    height: "100%",
+	    boxSizing: "border-box",
+	    display: "flex",
+	    flexWrap: "wrap"
+
+	};
+
+	var HEADER_STYLE = {
+	    fontSize: "22px",
+	    color: "#333",
+	    height: "75px",
+	    width: "100%",
+	    boxSizing: "border-box",
+	    padding: 10
+	};
+
+	var DESCRIPTION_STYLE = {
+	    fontSize: "15px",
+	    color: "#666",
+	    height: "calc(100% - 150px)",
+	    width: "100%",
+	    boxSizing: "border-box",
+	    padding: 10
+	};
+
+	var FOOTER_STYLE = {
+	    fontSize: "15px",
+	    color: "#666",
+	    height: "75px",
+	    width: "100%",
+	    boxSizing: "border-box",
+	    padding: 10,
+	    display: "flex",
+	    flexWrap: "wrap"
+	};
+
+	var BUTTON_STYLES = {
+	    height: "25px",
+	    width: "50px",
+	    boxSizing: "border-box",
+	    paddingLeft: 5,
+	    paddingRight: 5,
+	    display: "flex",
+	    justifyContent: "center",
+	    alignItems: "center"
+	};
+
+/***/ },
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14334,7 +14600,125 @@
 
 
 /***/ },
-/* 34 */,
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var React = _interopRequireWildcard(_react);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	// export interface SingleCheckListOption {
+	//     name: string;
+	//     value: number;
+	// }
+
+	// export interface SingleCheckListProps extends React.Props<SingleCheckList> {
+	//     options: SingleCheckListOption[];
+	//     onChange: (values: number) => void;
+	//     value: number;
+	// }
+
+	// export interface SingleCheckListState {
+
+	// }
+
+
+	exports.default = React.createClass({
+	    displayName: "singleCheckList",
+	    render: function render() {
+	        var _this = this;
+
+	        return React.createElement(
+	            "div",
+	            { style: STYLES },
+	            this.props.options.map(function (option) {
+	                var self = _this;
+	                var isSelected = function () {
+	                    if (self.props.value === undefined) {
+	                        return false;
+	                    }
+	                    if (self.props.value === option.value) {
+	                        return true;
+	                    }
+	                    return false;
+	                }();
+	                return React.createElement(
+	                    "div",
+	                    { key: option.value, style: ITEM_STYLES, onClick: function onClick() {
+	                            _this.handleItemClick(option.value);
+	                        } },
+	                    React.createElement(
+	                        "div",
+	                        { style: INPUT_WRAPPER },
+	                        React.createElement("input", { readOnly: true, checked: isSelected, type: "checkbox" })
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { style: LABEL_STYLES },
+	                        option.name
+	                    )
+	                );
+	            })
+	        );
+	    },
+
+
+	    handleItemClick: function handleItemClick(val) {
+
+	        this.props.onChange(val);
+	    }
+
+	});
+
+
+	var STYLES = {
+	    height: "100%",
+	    width: "100%"
+	};
+
+	var ITEM_HEIGHT = undefined;
+	var ITEM_WIDTH = "100%";
+
+	var ITEM_STYLES = {
+	    width: ITEM_WIDTH,
+	    height: ITEM_HEIGHT,
+	    display: "flex"
+	};
+
+	var INPUT_WRAPPER = {
+	    height: ITEM_HEIGHT,
+	    width: ITEM_HEIGHT,
+	    display: "flex",
+	    justifyContent: "center",
+	    alignItems: "center"
+	};
+
+	var LABEL_STYLES = {
+	    width: ITEM_WIDTH - ITEM_HEIGHT,
+	    height: ITEM_HEIGHT,
+	    boxSizing: "border-box",
+	    paddingLeft: 5,
+	    display: "flex",
+	    alignItems: "center"
+	};
+
+	var INPUT_STYLES = {
+	    height: "100%",
+	    width: "100%",
+	    padding: 0,
+	    margin: 0,
+	    boxSizing: "border-box"
+	};
+
+/***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -31978,557 +32362,6 @@
 
 	module.exports = ReactDOMInvalidARIAHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jquery = __webpack_require__(33);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _issueTile = __webpack_require__(187);
-
-	var _issueTile2 = _interopRequireDefault(_issueTile);
-
-	var _issueFilter = __webpack_require__(188);
-
-	var _issueFilter2 = _interopRequireDefault(_issueFilter);
-
-	var _issueContainer = __webpack_require__(190);
-
-	var _issueContainer2 = _interopRequireDefault(_issueContainer);
-
-	var _issuePaginator = __webpack_require__(191);
-
-	var _issuePaginator2 = _interopRequireDefault(_issuePaginator);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'homeWrapper',
-
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      issues: []
-	    };
-	  },
-
-	  componentWillMount: function componentWillMount() {
-	    //hard coded issue request
-	    //  debugger;
-	    this.setState(this.getInitialState());
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    _jquery2.default.getJSON("/issues?category=immigration&scale=local").then(function (issues) {
-	      this.setState({
-	        issues: issues
-	      });
-	    }.bind(this));
-	  },
-
-	  divRef: HTMLDivElement,
-
-	  render: function render() {
-
-	    return _react2.default.createElement(
-	      'div',
-	      { ref: function ref(elt) {}, style: WRAPPER_STYLES },
-	      this.state !== null ? _react2.default.createElement(
-	        'div',
-	        { style: ISSUE_CONTAINER_STYLES },
-	        _react2.default.createElement(_issueFilter2.default, null),
-	        _react2.default.createElement(_issueContainer2.default, { issues: this.state.issues }),
-	        _react2.default.createElement(_issuePaginator2.default, null)
-	      ) : ''
-	    );
-	  }
-	});
-
-
-	var WRAPPER_STYLES = {
-	  width: "100%",
-	  height: "100%",
-	  display: "flex",
-	  alignItems: "center",
-	  justifyContent: "center"
-	};
-
-	var ISSUE_CONTAINER_STYLES = {
-
-	  width: "600px",
-	  height: "100%",
-	  boxSizing: "border-box"
-
-	};
-
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	  displayName: "issueTile",
-	  render: function render() {
-
-	    return _react2.default.createElement(
-	      "div",
-	      { style: TILE_STYLES },
-	      _react2.default.createElement(
-	        "div",
-	        { style: HEADER_STYLE },
-	        this.props.issue.title
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { style: FOOTER_STYLE },
-	        _react2.default.createElement(
-	          "div",
-	          { onClick: this.navigate, className: "tile-button", style: DETAIL_BUTTON_STYLES },
-	          "Weigh In"
-	        )
-	      )
-	    );
-	  },
-
-
-	  navigate: function navigate() {
-	    location.replace("/data/" + this.props.issue._id);
-	  }
-
-	});
-
-
-	var TILE_STYLES = {
-	  position: "relative",
-	  width: "265px",
-	  height: "190px",
-	  borderRadius: "5px",
-	  border: "1px solid #ccc",
-	  boxSizing: "border-box",
-	  margin: 10
-	};
-
-	var HEADER_STYLE = {
-	  fontSize: "15px",
-	  color: "#333",
-	  height: "75px",
-	  width: "100%",
-	  boxSizing: "border-box",
-	  padding: 10
-	};
-
-	var DESCRIPTION_STYLE = {
-	  fontSize: "12px",
-	  color: "#666",
-	  height: "75px",
-	  width: "100%",
-	  boxSizing: "border-box",
-	  padding: 10
-	};
-
-	var FOOTER_STYLE = {
-	  position: "absolute",
-	  bottom: 0,
-	  left: 0,
-	  fontSize: "15px",
-	  color: "#666",
-	  height: "45px",
-	  width: "100%",
-	  boxSizing: "border-box",
-	  padding: 10
-	};
-
-	var DETAIL_BUTTON_STYLES = {
-	  height: "25px",
-	  width: "80px",
-	  boxSizing: "border-box",
-	  paddingLeft: 5,
-	  paddingRight: 5,
-	  display: "flex",
-	  justifyContent: "center",
-	  alignItems: "center"
-	};
-
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _dropDownList = __webpack_require__(189);
-
-	var _dropDownList2 = _interopRequireDefault(_dropDownList);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var scaleOptions = [{ value: 0, name: "local" }, { value: 1, name: "national" }];
-
-	var issueOptions = [{ value: 0, name: "abortion" }, { value: 1, name: "immigration" }];
-
-	var statusOptions = [{ value: 0, name: "not voted on" }, { value: 1, name: "delegated" }];
-
-	exports.default = _react2.default.createClass({
-	    displayName: 'issueFilter',
-
-
-	    scaleDropDown: _dropDownList2.default,
-	    issueDropDown: _dropDownList2.default,
-	    statusDropDown: _dropDownList2.default,
-
-	    componentWillMount: function componentWillMount() {
-	        var initialState = {
-	            selectedScale: 0,
-	            selectedIssue: 0,
-	            selectedStatus: 0
-	        };
-	        this.setState(initialState);
-	    },
-
-	    componentDidUpdate: function componentDidUpdate() {
-	        console.log("new filter options!");
-	    },
-
-	    render: function render() {
-	        var _this = this;
-
-	        return _react2.default.createElement(
-	            'div',
-	            { style: ISSUE_FILTER_WRAPPER_STYLES },
-	            _react2.default.createElement(
-	                'div',
-	                { style: HEADER_TEXT_STYLES },
-	                "Show me "
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { style: BUTTON_WRAPPER_STYLES },
-	                _react2.default.createElement(_dropDownList2.default, {
-	                    onChange: function onChange(val) {
-	                        var nextState = { selectedScale: val };_this.setState(nextState);
-	                    },
-	                    ref: function ref(elt) {
-	                        _this.scaleDropDown = elt;
-	                    }, value: this.state.selectedScale, options: scaleOptions })
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { style: HEADER_TEXT_STYLES },
-	                "issues about "
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { style: BUTTON_WRAPPER_STYLES },
-	                _react2.default.createElement(_dropDownList2.default, {
-	                    onChange: function onChange(val) {
-	                        var nextState = { selectedIssue: val };_this.setState(nextState);
-	                    },
-	                    ref: function ref(elt) {
-	                        _this.issueDropDown = elt;
-	                    }, value: this.state.selectedIssue, options: issueOptions })
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { style: HEADER_TEXT_STYLES },
-	                "that I have"
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { style: BUTTON_WRAPPER_STYLES },
-	                _react2.default.createElement(_dropDownList2.default, {
-	                    onChange: function onChange(val) {
-	                        var nextState = { selectedStatus: val };_this.setState(nextState);
-	                    },
-	                    ref: function ref(elt) {
-	                        _this.statusDropDown = elt;
-	                    }, value: this.state.selectedStatus, options: statusOptions })
-	            )
-	        );
-	    }
-	});
-
-
-	var ISSUE_FILTER_WRAPPER_STYLES = {
-	    height: "50px",
-	    width: "100%",
-	    boxSizing: "border-box",
-	    display: "flex",
-	    flexWrap: "wrap"
-	};
-
-	var BUTTON_WRAPPER_STYLES = {
-	    height: "100%",
-	    boxSizing: "border-box",
-	    padding: 10
-	};
-
-	var HEADER_TEXT_STYLES = {
-	    height: "100%",
-	    boxSizing: "border-box",
-	    padding: 10,
-	    display: "flex",
-	    justifyContent: "center",
-	    alignItems: "center"
-	};
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var React = _interopRequireWildcard(_react);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	var PLACEHOLDER_VALUE = "NO_OPTION_SELECTED";
-
-	// export interface DropDownListOption {
-	//     name: string;
-	//     value: number;
-	// }
-
-	// export interface DropDownListProps extends React.Props<DropDownList> {
-	//     options: DropDownListOption[];
-	//     onChange: (value: number) => void;
-	//     value: number;
-	// }
-
-	// export interface DropDownListState {
-
-	// }
-	exports.default = React.createClass({
-	    displayName: "dropDownList",
-	    render: function render() {
-	        var val = this.props.value !== undefined ? this.props.value.toString() : undefined;
-	        return React.createElement(
-	            "div",
-	            { style: STYLES },
-	            React.createElement(
-	                "select",
-	                { ref: this.setRef, onChange: this.handleChange, style: STYLES, value: val },
-	                this.props.options !== undefined ? this.props.options.map(function (option) {
-	                    return React.createElement(
-	                        "option",
-	                        { key: option.value, value: option.value.toString() },
-	                        option.name
-	                    );
-	                }) : ''
-	            )
-	        );
-	    },
-
-
-	    selectRef: HTMLSelectElement,
-
-	    setRef: function setRef(elt) {
-	        this.selectRef = elt;
-	    },
-	    handleChange: function handleChange() {
-
-	        if (!(this.props.options !== undefined && this.props.options.length > 0)) return;
-
-	        if (this.selectRef.selectedIndex === 0) {
-	            this.props.onChange(undefined);
-	            return;
-	        }
-
-	        var opt = this.selectRef.options[this.selectRef.selectedIndex];
-	        var asInt = parseInt(opt.value);
-	        this.props.onChange(asInt);
-	    }
-	});
-
-
-	var STYLES = {
-	    height: "100%",
-	    width: "100%"
-	};
-
-	//<option key={"placeholder"} value={PLACEHOLDER_VALUE}> {"..."} </option>
-
-/***/ },
-/* 190 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _issueTile = __webpack_require__(187);
-
-	var _issueTile2 = _interopRequireDefault(_issueTile);
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// PROPS:
-	// page: number
-	// nPages: number
-	// nextPageHandler: () => void;
-	// prevPageHandler: () => void;
-
-	exports.default = _react2.default.createClass({
-	    displayName: 'issueContainer',
-	    render: function render() {
-	        console.log(this.props.issues);
-	        return _react2.default.createElement(
-	            'div',
-	            { style: WRAPPER_STYLES },
-	            this.props.issues.map(function (issue, i) {
-	                return _react2.default.createElement(_issueTile2.default, { key: i, issue: issue });
-	            })
-	        );
-	    },
-
-
-	    nextPageHandler: function nextPageHandler() {
-
-	        if (undefined.props.page !== nPages - 1) {
-	            undefined.props.nextPageHandler();
-	        }
-	    },
-
-	    prevPageHandler: function prevPageHandler() {
-
-	        if (undefined.props.page !== 0) {
-	            undefined.props.prevPageHandler();
-	        }
-	    }
-
-	});
-
-
-	var ISSUE_FILTER_WRAPPER_STYLES = {
-	    height: "50px",
-	    width: "100%",
-	    boxSizing: "border-box",
-	    backgroundColor: "#ccc"
-
-	};
-
-	var WRAPPER_STYLES = {
-	    height: "450px",
-	    boxSizing: "border-box",
-	    padding: 10,
-	    display: "flex",
-	    flexWrap: "wrap"
-	};
-
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// PROPS:
-	// page: number
-	// nPages: number
-	// nextPageHandler: () => void;
-	// prevPageHandler: () => void;
-
-	exports.default = _react2.default.createClass({
-	    displayName: "issuePaginator",
-	    render: function render() {
-
-	        return _react2.default.createElement(
-	            "div",
-	            { style: ISSUE_FILTER_WRAPPER_STYLES },
-	            _react2.default.createElement(
-	                "div",
-	                { onClick: this.prevPageHandler, style: BUTTON_WRAPPER_STYLES },
-	                "Previous"
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { onClick: this.nextPageHandler, style: BUTTON_WRAPPER_STYLES },
-	                "Next"
-	            )
-	        );
-	    },
-
-
-	    nextPageHandler: function nextPageHandler() {
-
-	        if (undefined.props.page !== nPages - 1) {
-	            undefined.props.nextPageHandler();
-	        }
-	    },
-
-	    prevPageHandler: function prevPageHandler() {
-
-	        if (undefined.props.page !== 0) {
-	            undefined.props.prevPageHandler();
-	        }
-	    }
-
-	});
-
-
-	var ISSUE_FILTER_WRAPPER_STYLES = {
-	    height: "50px",
-	    width: "100%",
-	    boxSizing: "border-box",
-	    display: "flex"
-	};
-
-	var BUTTON_WRAPPER_STYLES = {
-	    height: "100%",
-	    boxSizing: "border-box",
-	    padding: 10
-	};
 
 /***/ }
 /******/ ]);

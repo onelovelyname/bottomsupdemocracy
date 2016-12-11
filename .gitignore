@@ -15,9 +15,6 @@ tmp
 
 #Build
 
-public/home.bundle.js
-public/data.bundle.js
-
 # API keys and secrets
 .env
 
