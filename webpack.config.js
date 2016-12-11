@@ -1,10 +1,13 @@
 var path = require("path");
 
 module.exports = {
-    entry:  "./views/client/home/home.js",
+    entry: {
+      home: "./views/client/home/home.js",
+      data: "./views/client/data/data.js"
+    },
     output: {
         path: __dirname,
-        filename: "./public/home.bundle.js",
+        filename: "./public/[name].bundle.js",
     },
     module: {
       loaders: [
