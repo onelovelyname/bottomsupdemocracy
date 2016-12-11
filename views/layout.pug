@@ -6,9 +6,10 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
-    title #{title} - Bottoms-Up
+    title #{title} - Reality Check
     link(rel='shortcut icon', href='/img/bottoms_up_logo.png')
     link(rel='stylesheet', href='/css/main.css')
+    block links
 
   body
     include partials/header
