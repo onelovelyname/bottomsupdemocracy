@@ -17,7 +17,8 @@ export default React.createClass({
   },
 
   componentWillMount: function componentWillMount() {
-    $.getJSON("/api/issues").then((function (issues) {
+    //hard coded issue request
+    $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
       this.setState({
         issues: issues
       });
