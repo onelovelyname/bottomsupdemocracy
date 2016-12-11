@@ -7,11 +7,6 @@ exports.postOpinion = (req, res, next) => {
     saveOneOpinion(req).then(function(opinion) {
        res.send(opinion);
     });
-    // Promise.all([saveOneOpinion(req), Issue.getIssueById(req.body.issue)]).then(function(results) {
-    //     console.log("opinion: " + results[0]);
-    //     console.log("issue: " + results[1]);
-    //     res.send("success!");
-    // });
 };
 
 function saveOneOpinion(req) {
