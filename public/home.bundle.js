@@ -50,7 +50,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _homeWrapper = __webpack_require__(32);
+	var _homeWrapper = __webpack_require__(179);
 
 	var _homeWrapper2 = _interopRequireDefault(_homeWrapper);
 
@@ -4107,43 +4107,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	  displayName: 'homeWrapper',
-
-
-	  componentWillMount: function componentWillMount() {},
-
-	  componentDidMount: function componentDidMount() {
-	    console.log(this.divRef);
-	  },
-
-	  divRef: HTMLDivElement,
-
-	  render: function render() {
-	    var _this = this;
-
-	    return _react2.default.createElement('div', { ref: function ref(elt) {
-	        _this.divRef = elt;
-	      } });
-	  }
-	});
-
-/***/ },
+/* 32 */,
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21503,6 +21467,43 @@
 
 	module.exports = ReactDOMInvalidARIAHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	  displayName: 'homeWrapper',
+
+
+	  componentWillMount: function componentWillMount() {},
+
+	  componentDidMount: function componentDidMount() {
+	    console.log(this.divRef);
+	  },
+
+	  divRef: HTMLDivElement,
+
+	  render: function render() {
+	    var _this = this;
+
+	    return _react2.default.createElement('div', { ref: function ref(elt) {
+	        _this.divRef = elt;
+	      } });
+	  }
+	});
 
 /***/ }
 /******/ ]);
