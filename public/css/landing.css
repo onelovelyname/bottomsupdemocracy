@@ -1,0 +1,34 @@
+.hero-unit {
+    background-image: "./img/flag.jpg";
+    background-size:cover;
+    background-color: #EEEEEE;
+    height:300px;
+  
+  }
+.hero-unit h1 {
+    color: #FFFFFF;
+    font-size: 60px;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 0;
+}
+.hero-unit h2 {
+    font-size: 25px;
+    color: #FFFFFF;
+   
+}
+.fill{width:100%;height:350px;background-position:center;background-size:cover;
+}
+
+    /* Large desktop */
+    @media (min-width: 1200px) { ... }
+     
+    /* Portrait tablet to landscape and desktop */
+    @media (min-width: 768px) and (max-width: 979px) { ... }
+     
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) { ... }
+     
+    /* Landscape phones and down */
+    @media (max-width: 480px) { ... }
+  
