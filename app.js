@@ -30,6 +30,7 @@ dotenv.load({ path: '.env.example' });
 /**
  * Controllers (route handlers).
  */
+const landingController = require('./controllers/landing');
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
@@ -119,7 +120,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', homeController.index);
+app.get('/', landingController.index);
+app.get('/home', homeController.index)
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -137,7 +139,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
-app.get('/data/*', passportConfig.isAuthenticated, dataController.index);
+app.get('/data', passportConfig.isAuthenticated, dataController.index);
 app.post('/createissue', issuesController.postIssue);
 app.get('/issues', issuesController.getIssues);
 app.get('/issue/:issueid', issuesController.getIssue);
