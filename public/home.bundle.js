@@ -21515,7 +21515,8 @@
 	  },
 
 	  componentWillMount: function componentWillMount() {
-	    _jquery2.default.getJSON("/api/issues").then(function (issues) {
+	    //hard coded issue request
+	    _jquery2.default.getJSON("/issues?category=immigration&scale=local").then(function (issues) {
 	      this.setState({
 	        issues: issues
 	      });
