@@ -53,8 +53,8 @@ exports.findIssueByIdAndUpdate = function(id, update) {
 }
 
 exports.getIssues = function (req, res, next) {
-    const category = req.get("category");
-    const scale = req.get("scale");
+    const category = req.param("category");
+    const scale = req.param("scale");
     Issue.find()
         .where('category', category)
         .where('scale', scale)
