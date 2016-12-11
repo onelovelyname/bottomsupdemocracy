@@ -1,12 +1,18 @@
-import React from 'react'
-import $ from 'jquery'
-import IssueTile from './issueTile.jsx'
+import React from 'react';
+import $ from 'jquery';
+import IssueTile from './issueTile.jsx';
+import IssueFilter from './issueFilter.jsx';
+import IssueContainer from './issueContainer.jsx';
+import IssuePaginator from "./issuePaginator.jsx";
 
 export default React.createClass({
 
   getInitialState : function getInitialState() {
       return {
-          issues : [],
+          issues : [
+
+            
+          ],
       };
   },
 
@@ -17,6 +23,7 @@ export default React.createClass({
         issues: issues
       });
     }.bind(this)));
+
   },
 
   componentDidMount: function componentDidMount() {
@@ -26,20 +33,37 @@ export default React.createClass({
   divRef: HTMLDivElement,
 
   render(){
-    // if (this.props.issues){
-    //   var issueStates = this.props.issues.map((v,i)=>{
-    //     return (
-    //       <div className="issueTile" key={i}>
-    //         <IssueTile
-    //           {...v}
-    //         />
-        
-    //       </div>
-    //     )
-    //   })
-    return <div ref={(elt) => {
-       this.divRef = elt;
-   }}>
-   </div>
+
+    return ( 
+      <div ref={(elt) => {}} style={WRAPPER_STYLES}>
+        <div style={ISSUE_CONTAINER_STYLES}>
+          <IssueFilter>
+          </IssueFilter>
+          <IssueContainer>
+          </IssueContainer>
+          <IssuePaginator>
+          </IssuePaginator>
+        </div>
+      </div>
+    )
   }
+
 })
+
+
+const WRAPPER_STYLES = {
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+}
+
+const ISSUE_CONTAINER_STYLES = {
+
+  width: "600px",
+  height: "100%",
+  boxSizing: "border-box"
+
+}
+
