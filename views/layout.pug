@@ -9,11 +9,12 @@ html
     title #{title} - Bottoms-Up
     link(rel='shortcut icon', href='/img/bottoms_up_logo.png')
     link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/css/realStyles.css')
 
-  body
+  body(class="myBodyStyle")
     include partials/header
 
-    .container
+    div(class="container myContainerStyle")
       include partials/flash
       block content
       block data
