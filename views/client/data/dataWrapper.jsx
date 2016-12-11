@@ -6,33 +6,65 @@ import SingleCheckList from '../components/singleCheckList.jsx';
 export default React.createClass({
 
   getData: function(){
+
+      var id = window.location.pathname;
+      id = id.split('/');
+      id = id[id.length - 1];
+      console.log(id);
+      
+      debugger;
+      $.getJSON("/api/opinions/" + id).then((function (issues) {
+          console.log("PAYLOAD", issues);
+          debugger;
+                this.setState({
+                
+                });
+
+        }.bind(this)));;
+
+
       var nextState = {
-          issue: ""
+          issue: "",
+          preferenceValue: 0,
+          status: "not-voted"
       };
       this.setState(nextState);
   },
 
   componentWillMount: function componentWillMount() {
-      this.getData();
+      var nextState = {
+          issue: "",
+          preferenceValue: 0,
+          status: "not-voted"
+      };
+      this.setState(nextState);
   },
 
   componentDidMount: function componentDidMount() {
-    console.log(this.state.issues);
+     this.getData();
   },
 
   divRef: HTMLDivElement,
 
+  updatePreferenceValue: function(val){
+      var nextState = {
+          preferenceValue: val
+      };
+      this.setState(nextState);
+  }, 
+
   render(){
 
+    
     var preferenceOptions = [
         {value: 0,
-         text: "Strongly Agree"},
+         name: "Strongly Agree"},
          {value: 1,
-         text: "Agree"},
+         name: "Agree"},
          {value: 2,
-         text: "Disagree"},
+         name: "Disagree"},
          {value: 3,
-         text: "Strongly Disagree"}
+         name: "Strongly Disagree"}
     ]
 
     return ( 
@@ -47,7 +79,8 @@ export default React.createClass({
                  {"some issue description"}
                 </div>
                 <div style={{height: "100px", width: "100%"}}>
-                  <SingleCheckList options={preferenceOptions} value={0} onChange={() => {}}>
+                  <SingleCheckList options={preferenceOptions} value={this.state.preferenceValue}
+                   onChange={this.updatePreferenceValue}>
                   </SingleCheckList>
                 </div>
               </div>

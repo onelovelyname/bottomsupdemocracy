@@ -7,16 +7,12 @@ export default React.createClass({
 
     return <div style={TILE_STYLES}>
         <div style={HEADER_STYLE}>{
-              "Sample issue text sample issue text"
-            }
-        </div>
-        <div style={DESCRIPTION_STYLE}>{
-              "Sample issue description a b safjlsfd dsa adfj fadkljkl  sdalkjsdafkljdsaf dflk fsd"
+              this.props.issue.title
             }
         </div>
         <div style={FOOTER_STYLE}>
           <div onClick={this.navigate} className={"tile-button"} style={DETAIL_BUTTON_STYLES}>
-            { "LOL" }
+            { "Weigh In" }
           </div>
         </div>
     </div>
@@ -24,13 +20,14 @@ export default React.createClass({
     
   },
 
-  navigate: function(){
-    alert("navigating to issue page");
+  navigate: function(){ 
+    location.replace(location.href + "data/"+ this.props.issue._id);
   }
 
 })
 
 const TILE_STYLES = {
+  position: "relative",
   width: "265px",
   height: "190px",
   borderRadius: "5px",
@@ -40,7 +37,7 @@ const TILE_STYLES = {
 }
 
 const HEADER_STYLE = {
-  fontSize: "22px",
+  fontSize: "15px",
   color: "#333",
   height: "75px",
   width: "100%",
@@ -49,7 +46,7 @@ const HEADER_STYLE = {
 }
 
 const DESCRIPTION_STYLE = {
-  fontSize: "15px",
+  fontSize: "12px",
   color: "#666",
   height: "75px",
   width: "100%",
@@ -58,6 +55,9 @@ const DESCRIPTION_STYLE = {
 }
 
 const FOOTER_STYLE = {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
   fontSize: "15px",
   color: "#666",
   height: "45px",
@@ -67,8 +67,8 @@ const FOOTER_STYLE = {
 }
 
 const DETAIL_BUTTON_STYLES = {
-  height: "25",
-  width: "50px",
+  height: "25px",
+  width: "80px",
   boxSizing: "border-box",
   paddingLeft: 5,
   paddingRight: 5,

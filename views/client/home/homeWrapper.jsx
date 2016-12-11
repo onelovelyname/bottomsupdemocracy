@@ -10,35 +10,24 @@ export default React.createClass({
   getInitialState : function getInitialState() {
       return {
           issues : [
-            {
-              title: "asdfsd"
-            },
-            {
-              title: "asdfsd"
-            },
-            {
-              title: "asdfsd"
-            },
-            {
-              title: "asdfsd"
-            } 
+            
           ],
       };
   },
 
   componentWillMount: function componentWillMount() {
     //hard coded issue request
-    debugger;
+  //  debugger;
      this.setState(this.getInitialState());
 
   },
 
   componentDidMount: function componentDidMount() {
-    //  $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
-    //   this.setState({
-    //     issues: issues
-    //   });
-    // }.bind(this)));
+     $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
+      this.setState({
+        issues: issues
+      });
+    }.bind(this)));
   },
 
   divRef: HTMLDivElement,

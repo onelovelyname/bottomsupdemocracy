@@ -15,11 +15,10 @@ export default React.createClass({
 
   render(){
     console.log(this.props.issues);
-    debugger;
     return (
     <div style={WRAPPER_STYLES}>
-        { this.props.issues.map((issue) => {
-         return <IssueTile issue={issue} >
+        { this.props.issues.map((issue, i) => {
+         return <IssueTile key={i} issue={issue} >
         </IssueTile>
         })
         }

@@ -31737,30 +31737,22 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      issues: [{
-	        title: "asdfsd"
-	      }, {
-	        title: "asdfsd"
-	      }, {
-	        title: "asdfsd"
-	      }, {
-	        title: "asdfsd"
-	      }]
+	      issues: []
 	    };
 	  },
 
 	  componentWillMount: function componentWillMount() {
 	    //hard coded issue request
-	    debugger;
+	    //  debugger;
 	    this.setState(this.getInitialState());
 	  },
 
 	  componentDidMount: function componentDidMount() {
-	    //  $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
-	    //   this.setState({
-	    //     issues: issues
-	    //   });
-	    // }.bind(this)));
+	    _jquery2.default.getJSON("/issues?category=immigration&scale=local").then(function (issues) {
+	      this.setState({
+	        issues: issues
+	      });
+	    }.bind(this));
 	  },
 
 	  divRef: HTMLDivElement,
@@ -31824,12 +31816,7 @@
 	      _react2.default.createElement(
 	        "div",
 	        { style: HEADER_STYLE },
-	        "Sample issue text sample issue text"
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { style: DESCRIPTION_STYLE },
-	        "Sample issue description a b safjlsfd dsa adfj fadkljkl  sdalkjsdafkljdsaf dflk fsd"
+	        this.props.issue.title
 	      ),
 	      _react2.default.createElement(
 	        "div",
@@ -31837,7 +31824,7 @@
 	        _react2.default.createElement(
 	          "div",
 	          { onClick: this.navigate, className: "tile-button", style: DETAIL_BUTTON_STYLES },
-	          "LOL"
+	          "Weigh In"
 	        )
 	      )
 	    );
@@ -31845,13 +31832,14 @@
 
 
 	  navigate: function navigate() {
-	    alert("navigating to issue page");
+	    location.replace(location.href + "data/" + this.props.issue._id);
 	  }
 
 	});
 
 
 	var TILE_STYLES = {
+	  position: "relative",
 	  width: "265px",
 	  height: "190px",
 	  borderRadius: "5px",
@@ -31861,7 +31849,7 @@
 	};
 
 	var HEADER_STYLE = {
-	  fontSize: "22px",
+	  fontSize: "15px",
 	  color: "#333",
 	  height: "75px",
 	  width: "100%",
@@ -31870,7 +31858,7 @@
 	};
 
 	var DESCRIPTION_STYLE = {
-	  fontSize: "15px",
+	  fontSize: "12px",
 	  color: "#666",
 	  height: "75px",
 	  width: "100%",
@@ -31879,6 +31867,9 @@
 	};
 
 	var FOOTER_STYLE = {
+	  position: "absolute",
+	  bottom: 0,
+	  left: 0,
 	  fontSize: "15px",
 	  color: "#666",
 	  height: "45px",
@@ -31888,8 +31879,8 @@
 	};
 
 	var DETAIL_BUTTON_STYLES = {
-	  height: "25",
-	  width: "50px",
+	  height: "25px",
+	  width: "80px",
 	  boxSizing: "border-box",
 	  paddingLeft: 5,
 	  paddingRight: 5,
@@ -32139,12 +32130,11 @@
 	    displayName: 'issueContainer',
 	    render: function render() {
 	        console.log(this.props.issues);
-	        debugger;
 	        return _react2.default.createElement(
 	            'div',
 	            { style: WRAPPER_STYLES },
-	            this.props.issues.map(function (issue) {
-	                return _react2.default.createElement(_issueTile2.default, { issue: issue });
+	            this.props.issues.map(function (issue, i) {
+	                return _react2.default.createElement(_issueTile2.default, { key: i, issue: issue });
 	            })
 	        );
 	    },
