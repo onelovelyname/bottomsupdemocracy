@@ -139,7 +139,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
-app.get('/data', passportConfig.isAuthenticated, dataController.index);
+app.get('/data/*', passportConfig.isAuthenticated, dataController.index);
 app.post('/createissue', issuesController.postIssue);
 app.get('/issues', issuesController.getIssues);
 app.get('/issue/:issueid', issuesController.getIssue);

@@ -11,18 +11,15 @@ export default React.createClass({
       id = id.split('/');
       id = id[id.length - 1];
       console.log(id);
-      
-      debugger;
-      $.getJSON("/api/opinions/" + id).then((function (issues) {
-          console.log("PAYLOAD", issues);
+
+      var issuePromise = $.getJSON("/issue/" + id);
+
+      var opinionPromise = $.getJSON("/api/opinions/" + id);
+
+      $.when.apply($, [issuePromise, opinionPromise]).then((a, b) => {
+          console.log(a, b);
           debugger;
-                this.setState({
-                
-                });
-
-        }.bind(this)));;
-
-
+      })
       var nextState = {
           issue: "",
           preferenceValue: 0,

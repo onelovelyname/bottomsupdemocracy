@@ -31832,7 +31832,7 @@
 
 
 	  navigate: function navigate() {
-	    location.replace(location.href + "data/" + this.props.issue._id);
+	    location.replace("/data/" + this.props.issue._id);
 	  }
 
 	});
