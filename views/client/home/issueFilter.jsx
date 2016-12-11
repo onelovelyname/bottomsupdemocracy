@@ -36,7 +36,7 @@ export default React.createClass({
   },
 
   componentDidUpdate: function(){
-      alert("new filter options!");
+      console.log("new filter options!");
   },
 
   render(){

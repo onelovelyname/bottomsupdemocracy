@@ -31933,7 +31933,7 @@
 	    },
 
 	    componentDidUpdate: function componentDidUpdate() {
-	        alert("new filter options!");
+	        console.log("new filter options!");
 	    },
 
 	    render: function render() {
