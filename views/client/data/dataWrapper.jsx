@@ -1,20 +1,19 @@
 import React from 'react';
 import $ from 'jquery';
+import SingleCheckList from '../components/singleCheckList.jsx';
 
-
+// state 
 export default React.createClass({
 
-  getInitialState : function getInitialState() {
-      return {
-          issues : [
-
-            
-          ],
+  getData: function(){
+      var nextState = {
+          issue: ""
       };
+      this.setState(nextState);
   },
 
   componentWillMount: function componentWillMount() {
- 
+      this.getData();
   },
 
   componentDidMount: function componentDidMount() {
@@ -25,19 +24,38 @@ export default React.createClass({
 
   render(){
 
+    var preferenceOptions = [
+        {value: 0,
+         text: "Strongly Agree"},
+         {value: 1,
+         text: "Agree"},
+         {value: 2,
+         text: "Disagree"},
+         {value: 3,
+         text: "Strongly Disagree"}
+    ]
+
     return ( 
       <div ref={(elt) => {}} style={WRAPPER_STYLES}>
         <div style={CONTAINER_STYLES}>
             <div style={QUESTION_PANE_STYLES}>
               <div style={HEADER_STYLE}>
+                {"some issue title"}
               </div>
               <div style={DESCRIPTION_STYLE}>
+                <div style={{height: "100px", width: "100%"}}>
+                 {"some issue description"}
+                </div>
+                <div style={{height: "100px", width: "100%"}}>
+                  <SingleCheckList options={preferenceOptions} value={0} onChange={() => {}}>
+                  </SingleCheckList>
+                </div>
               </div>
               <div style={FOOTER_STYLE}>
-                <div style={BUTTON_STYLES}>
+                <div className={"tile-button"} style={$.extend({}, BUTTON_STYLES, {width: 75})}>
                    {"Delegate"}
                 </div>
-                <div style={BUTTON_STYLES}>
+                <div className={"tile-button"} style={$.extend({marginLeft: "5px"}, BUTTON_STYLES)}>
                    {"Vote"}
                 </div>
               </div>

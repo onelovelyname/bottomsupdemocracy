@@ -10,24 +10,35 @@ export default React.createClass({
   getInitialState : function getInitialState() {
       return {
           issues : [
-
-            
+            {
+              title: "asdfsd"
+            },
+            {
+              title: "asdfsd"
+            },
+            {
+              title: "asdfsd"
+            },
+            {
+              title: "asdfsd"
+            } 
           ],
       };
   },
 
   componentWillMount: function componentWillMount() {
     //hard coded issue request
-    $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
-      this.setState({
-        issues: issues
-      });
-    }.bind(this)));
+    debugger;
+     this.setState(this.getInitialState());
 
   },
 
   componentDidMount: function componentDidMount() {
-    console.log(this.state.issues);
+    //  $.getJSON("/issues?category=immigration&scale=local").then((function (issues) {
+    //   this.setState({
+    //     issues: issues
+    //   });
+    // }.bind(this)));
   },
 
   divRef: HTMLDivElement,
@@ -36,14 +47,15 @@ export default React.createClass({
 
     return ( 
       <div ref={(elt) => {}} style={WRAPPER_STYLES}>
+        { this.state !== null ?
         <div style={ISSUE_CONTAINER_STYLES}>
           <IssueFilter>
           </IssueFilter>
-          <IssueContainer>
+          <IssueContainer issues={this.state.issues}>
           </IssueContainer>
           <IssuePaginator>
           </IssuePaginator>
-        </div>
+        </div> : '' }
       </div>
     )
   }

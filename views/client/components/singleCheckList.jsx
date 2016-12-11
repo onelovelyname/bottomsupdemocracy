@@ -47,7 +47,7 @@ export default React.createClass({
                 </div>
     },
 
-    handleItemClick(val){
+    handleItemClick: function(val){
 
         this.props.onChange(val);
     }

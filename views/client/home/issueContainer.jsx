@@ -14,17 +14,15 @@ export default React.createClass({
   
 
   render(){
-
+    console.log(this.props.issues);
+    debugger;
     return (
     <div style={WRAPPER_STYLES}>
-        <IssueTile>
+        { this.props.issues.map((issue) => {
+         return <IssueTile issue={issue} >
         </IssueTile>
-        <IssueTile>
-        </IssueTile>
-        <IssueTile>
-        </IssueTile>
-        <IssueTile>
-        </IssueTile>
+        })
+        }
     </div>)
   },
 
@@ -58,6 +56,6 @@ const WRAPPER_STYLES = {
     height: "calc(100% - 100px)",
     boxSizing: "border-box",
     padding: 10,
-        display: "flex",
+    display: "flex",
     flexWrap: "wrap"
 }
