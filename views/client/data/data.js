@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import DataWrapper from './dataWrapper.jsx';
 

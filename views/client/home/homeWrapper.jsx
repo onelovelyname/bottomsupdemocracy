@@ -14,7 +14,7 @@ export default React.createClass({
   divRef: HTMLDivElement,
 
   render(){
-   <div ref={(elt) => {
+    return <div ref={(elt) => {
        this.divRef = elt;
    }}>
    </div>

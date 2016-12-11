@@ -44,7 +44,12 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	
+	import React from 'react'
+	import HomeWrapper from './homeWrapper.jsx';
+
+	render((HomeWrapper), document.getElementById("app"));
+
+
 
 /***/ }
 /******/ ]);
